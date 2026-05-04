@@ -2,68 +2,90 @@
     "total_patents": 1500,
     "top_inventors": [
         {
-            "name": "James Johnson",
+            "name": "Michael Jones",
+            "patents": 5
+        },
+        {
+            "name": "David Jones",
+            "patents": 5
+        },
+        {
+            "name": "David Martinez",
             "patents": 4
         },
         {
-            "name": "Alice Williams",
-            "patents": 4
-        },
-        {
-            "name": "John Smith",
+            "name": "David Miller",
             "patents": 3
         },
         {
-            "name": "Alice Martinez",
-            "patents": 3
-        },
-        {
-            "name": "Lily Davis",
+            "name": "Lily Williams",
             "patents": 3
         }
     ],
     "top_companies": [
         {
-            "name": "Samsung",
+            "name": "Microsoft",
             "patents": 9
         },
         {
+            "name": "Sony",
+            "patents": 8
+        },
+        {
+            "name": "Toyota",
+            "patents": 8
+        },
+        {
+            "name": "Amazon",
+            "patents": 8
+        },
+        {
             "name": "Intel",
-            "patents": 8
-        },
-        {
-            "name": "LG",
-            "patents": 8
-        },
-        {
-            "name": "Samsung",
-            "patents": 8
-        },
-        {
-            "name": "Microsoft",
             "patents": 8
         }
     ],
     "top_countries": [
         {
-            "country": "China",
-            "share": 0.264
-        },
-        {
-            "country": "Japan",
-            "share": 0.2333
-        },
-        {
             "country": "South Korea",
-            "share": 0.2287
-        },
-        {
-            "country": "Germany",
-            "share": 0.228
+            "share": 0.2433
         },
         {
             "country": "UK",
-            "share": 0.2247
+            "share": 0.2333
+        },
+        {
+            "country": "Japan",
+            "share": 0.23
+        },
+        {
+            "country": "Canada",
+            "share": 0.2233
+        },
+        {
+            "country": "USA",
+            "share": 0.22
+        }
+    ],
+    "top_categories": [
+        {
+            "classification": "H01L",
+            "patents": 198
+        },
+        {
+            "classification": "B60R",
+            "patents": 194
+        },
+        {
+            "classification": "Y02E",
+            "patents": 193
+        },
+        {
+            "classification": "A61B",
+            "patents": 193
+        },
+        {
+            "classification": "H04L",
+            "patents": 185
         }
     ]
 }

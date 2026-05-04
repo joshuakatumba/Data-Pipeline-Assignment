@@ -68,3 +68,12 @@ FROM inventors i
 JOIN relationships r ON i.inventor_id = r.inventor_id
 GROUP BY i.inventor_id, i.name
 LIMIT 20;
+
+-- Q8: Advanced Analysis - Patent Categories
+-- Which patent classifications have the most patents?
+SELECT classification, COUNT(patent_id) as total_patents
+FROM patents
+WHERE classification IS NOT NULL
+GROUP BY classification
+ORDER BY total_patents DESC
+LIMIT 10;

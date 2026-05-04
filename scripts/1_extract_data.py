@@ -1,7 +1,33 @@
+import requests
 import json
 import random
 import os
 from datetime import datetime, timedelta
+
+def fetch_real_patent_data(num_records=1500):
+    """
+    Attempts to fetch real patent data from an API.
+    Falls back to generating realistic mock data if the API is unavailable.
+    """
+    # Using PatentsView API endpoint for demonstration
+    url = 'https://api.patentsview.org/patents/query'
+    query = '{"_gte":{"patent_date":"2023-01-01"}}'
+    fields = '["patent_id","patent_title","patent_abstract","patent_date","inventor_id","inventor_name_first","inventor_name_last","inventor_country","assignee_id","assignee_organization", "cpc_category_id"]'
+    
+    print(f"Attempting to fetch real data from PatentsView API: {url}")
+    try:
+        response = requests.get(f"{url}?q={query}&f={fields}", timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        patents = data.get("patents", [])
+        if patents:
+            print(f"Successfully fetched {len(patents)} records from API.")
+            return patents
+    except Exception as e:
+        print(f"API fetch failed or timed out: {e}")
+        print("Falling back to generating realistic synthetic data to ensure pipeline continuity...")
+
+    return generate_synthetic_patents(num_records)
 
 def generate_synthetic_patents(num_records=1000):
     print(f"Generating {num_records} synthetic patent records...")
@@ -13,8 +39,10 @@ def generate_synthetic_patents(num_records=1000):
     first_names = ["John", "Alice", "Robert", "Emma", "Michael", "Sarah", "David", "Jessica", "James", "Lily"]
     last_names = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"]
     countries = ["USA", "China", "Germany", "Japan", "South Korea", "UK", "France", "Canada"]
-    
     companies = ["IBM", "Samsung", "Google", "Microsoft", "Apple", "Intel", "Sony", "Toyota", "Amazon", "LG"]
+    
+    # Adding classifications for advanced analysis
+    classifications = ["G06F", "H04L", "A61B", "B60R", "C12N", "Y02E", "G01N", "H01L"]
     
     patents = []
     
@@ -51,6 +79,7 @@ def generate_synthetic_patents(num_records=1000):
             "title": title,
             "abstract": abstract,
             "filing_date": filing_date.strftime("%Y-%m-%d"),
+            "classification": random.choice(classifications),
             "inventors": inventors,
             "assignees": assignees
         }
@@ -70,7 +99,7 @@ if __name__ == "__main__":
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, "raw_patents.json")
     
-    patents_data = generate_synthetic_patents(1500)
+    patents_data = fetch_real_patent_data(1500)
     
     with open(output_path, "w") as f:
         json.dump(patents_data, f, indent=4)

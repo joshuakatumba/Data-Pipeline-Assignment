@@ -56,6 +56,17 @@ def generate_reports():
     """
     df_trends = pd.read_sql_query(query_trends, conn)
     
+    # Q8: Advanced Analysis - Patent Categories
+    query_categories = """
+    SELECT classification, COUNT(patent_id) as total_patents
+    FROM patents
+    WHERE classification IS NOT NULL
+    GROUP BY classification
+    ORDER BY total_patents DESC
+    LIMIT 10;
+    """
+    df_categories = pd.read_sql_query(query_categories, conn)
+    
     # 1. Console Report
     print("\n================== PATENT REPORT ===================")
     print(f"Total Patents: {total_patents}")
@@ -71,6 +82,10 @@ def generate_reports():
     print("Top Countries:")
     for idx, row in df_top_countries.head(3).iterrows():
         print(f"{idx+1}. {row['country']}")
+        
+    print("\nAdvanced Analysis - Top Patent Categories:")
+    for idx, row in df_categories.head(3).iterrows():
+        print(f"{idx+1}. {row['classification']} - {row['total_patents']}")
     print("====================================================\n")
     
     # 2. Export CSV Files
@@ -80,6 +95,7 @@ def generate_reports():
     df_top_inventors.to_csv(os.path.join(reports_dir, "top_inventors.csv"), index=False)
     df_top_companies.to_csv(os.path.join(reports_dir, "top_companies.csv"), index=False)
     df_trends.to_csv(os.path.join(reports_dir, "country_trends.csv"), index=False)
+    df_categories.to_csv(os.path.join(reports_dir, "top_categories.csv"), index=False)
     print("Exported CSV reports.")
     
     # 3. JSON Report
@@ -99,6 +115,10 @@ def generate_reports():
                 "share": round(int(row['total_patents']) / total_patents, 4) if total_patents > 0 else 0
             } 
             for _, row in df_top_countries.head(5).iterrows()
+        ],
+        "top_categories": [
+            {"classification": row['classification'], "patents": int(row['total_patents'])}
+            for _, row in df_categories.head(5).iterrows()
         ]
     }
     

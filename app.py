@@ -42,11 +42,21 @@ def load_data():
     ORDER BY year;
     """, conn)
     
+    # Q8: Advanced Analysis - Categories
+    df_categories = pd.read_sql_query("""
+    SELECT classification, COUNT(patent_id) as total_patents
+    FROM patents
+    WHERE classification IS NOT NULL
+    GROUP BY classification
+    ORDER BY total_patents DESC
+    LIMIT 10;
+    """, conn)
+    
     conn.close()
-    return df_inventors, df_companies, df_trends
+    return df_inventors, df_companies, df_trends, df_categories
 
 try:
-    df_inventors, df_companies, df_trends = load_data()
+    df_inventors, df_companies, df_trends, df_categories = load_data()
     
     col1, col2 = st.columns(2)
     
@@ -58,8 +68,16 @@ try:
         st.subheader("Top 10 Companies")
         st.bar_chart(df_companies.set_index("name"))
         
-    st.subheader("Patent Filings Over Time")
-    st.line_chart(df_trends.set_index("year"))
+    col3, col4 = st.columns(2)
+    
+    with col3:
+        st.subheader("Patent Filings Over Time")
+        st.line_chart(df_trends.set_index("year"))
+        
+    with col4:
+        st.subheader("Top Patent Categories")
+        st.bar_chart(df_categories.set_index("classification"))
+    
     
 except sqlite3.OperationalError:
     st.error("Database not found! Please run the data pipeline scripts first.")

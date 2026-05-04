@@ -29,7 +29,8 @@ def clean_data():
             "title": record.get("title"),
             "abstract": record.get("abstract", "No abstract provided"), # Fill missing abstract
             "filing_date": record.get("filing_date"),
-            "year": year
+            "year": year,
+            "classification": record.get("classification", "Unknown")
         })
         
         # Inventors

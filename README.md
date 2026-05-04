@@ -13,7 +13,13 @@ This repository contains a full data engineering pipeline for processing, cleani
 
 ## Requirements
 
-Ensure you have Python 3 installed. Install the dependencies using:
+Ensure you have Python 3 installed. This project uses a nested virtual environment. Before installing dependencies or running the scripts, activate the virtual environment from the project root using:
+
+```bash
+source venv/venv/bin/activate
+```
+
+Then, install the dependencies using:
 
 ```bash
 pip install -r requirements.txt
