@@ -1,0 +1,69 @@
+{
+    "total_patents": 1500,
+    "top_inventors": [
+        {
+            "name": "James Johnson",
+            "patents": 4
+        },
+        {
+            "name": "Alice Williams",
+            "patents": 4
+        },
+        {
+            "name": "John Smith",
+            "patents": 3
+        },
+        {
+            "name": "Alice Martinez",
+            "patents": 3
+        },
+        {
+            "name": "Lily Davis",
+            "patents": 3
+        }
+    ],
+    "top_companies": [
+        {
+            "name": "Samsung",
+            "patents": 9
+        },
+        {
+            "name": "Intel",
+            "patents": 8
+        },
+        {
+            "name": "LG",
+            "patents": 8
+        },
+        {
+            "name": "Samsung",
+            "patents": 8
+        },
+        {
+            "name": "Microsoft",
+            "patents": 8
+        }
+    ],
+    "top_countries": [
+        {
+            "country": "China",
+            "share": 0.264
+        },
+        {
+            "country": "Japan",
+            "share": 0.2333
+        },
+        {
+            "country": "South Korea",
+            "share": 0.2287
+        },
+        {
+            "country": "Germany",
+            "share": 0.228
+        },
+        {
+            "country": "UK",
+            "share": 0.2247
+        }
+    ]
+}
