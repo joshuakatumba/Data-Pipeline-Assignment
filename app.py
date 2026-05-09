@@ -127,7 +127,7 @@ try:
     # --- Qualitative Data ---
     st.header("Qualitative Analysis")
     st.markdown("Sample of recent patent titles and abstracts for qualitative review.")
-    st.dataframe(df_qualitative, width="stretch", hide_index=True)
+    st.dataframe(df_qualitative, use_container_width=True, hide_index=True)
     
 except sqlite3.OperationalError:
     st.error("Database not found! Please run the data pipeline scripts first.")
