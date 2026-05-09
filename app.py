@@ -2,6 +2,7 @@ import streamlit as st
 import sqlite3
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 st.set_page_config(page_title="Patent Intelligence Dashboard", layout="wide")
 
@@ -52,11 +53,31 @@ def load_data():
     LIMIT 10;
     """, conn)
     
+    # Qualitative Data
+    df_qualitative = pd.read_sql_query("""
+    SELECT title as Title, abstract as Abstract, classification as Classification, year as Year
+    FROM patents
+    ORDER BY year DESC
+    LIMIT 100;
+    """, conn)
+    
+    # Overall stats
+    total_patents = pd.read_sql_query("SELECT COUNT(*) as cnt FROM patents", conn).iloc[0]['cnt']
+    
     conn.close()
-    return df_inventors, df_companies, df_trends, df_categories
+    return df_inventors, df_companies, df_trends, df_categories, df_qualitative, total_patents
 
 try:
-    df_inventors, df_companies, df_trends, df_categories = load_data()
+    df_inventors, df_companies, df_trends, df_categories, df_qualitative, total_patents = load_data()
+    
+    # --- Quantitative Metrics ---
+    st.header("Quantitative Overview")
+    mcol1, mcol2, mcol3, mcol4 = st.columns(4)
+    mcol1.metric("Total Patents", f"{total_patents:,}")
+    mcol2.metric("Top Inventor", df_inventors.iloc[0]['name'] if not df_inventors.empty else "N/A")
+    mcol3.metric("Top Company", df_companies.iloc[0]['name'] if not df_companies.empty else "N/A")
+    mcol4.metric("Top Category", df_categories.iloc[0]['classification'] if not df_categories.empty else "N/A")
+    st.divider()
     
     col1, col2 = st.columns(2)
     
@@ -71,13 +92,42 @@ try:
     col3, col4 = st.columns(2)
     
     with col3:
-        st.subheader("Patent Filings Over Time")
-        st.line_chart(df_trends.set_index("year"))
+        st.subheader("Patent Filings & Projections")
+        if not df_trends.empty:
+            # Prepare historical data
+            x_hist = df_trends['year'].values
+            y_hist = df_trends['total_patents'].values
+            
+            # Fit linear model (degree 1)
+            z = np.polyfit(x_hist, y_hist, 1)
+            p = np.poly1d(z)
+            
+            # Create future years (next 5 years)
+            last_year = int(x_hist[-1])
+            x_future = np.arange(last_year + 1, last_year + 6)
+            y_future = p(x_future)
+            y_future = np.maximum(0, y_future) # Prevent negative predictions
+            
+            # Combine for plotting
+            df_hist = pd.DataFrame({"Year": x_hist, "Historical": y_hist, "Projected": np.nan})
+            df_proj = pd.DataFrame({"Year": x_future, "Historical": np.nan, "Projected": y_future})
+            
+            df_combined = pd.concat([df_hist, df_proj]).set_index("Year")
+            
+            st.line_chart(df_combined)
+        else:
+            st.info("Not enough data to show trends.")
         
     with col4:
         st.subheader("Top Patent Categories")
         st.bar_chart(df_categories.set_index("classification"))
     
+    st.divider()
+    
+    # --- Qualitative Data ---
+    st.header("Qualitative Analysis")
+    st.markdown("Sample of recent patent titles and abstracts for qualitative review.")
+    st.dataframe(df_qualitative, use_container_width=True, hide_index=True)
     
 except sqlite3.OperationalError:
     st.error("Database not found! Please run the data pipeline scripts first.")
