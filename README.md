@@ -2,8 +2,8 @@
 
 A high-performance, interactive data pipeline and analytics dashboard for global patent intelligence.
 
-**GitHub:** [joshuakatumba/Data-Pipeline-Assignment](https://github.com/joshuakatumba/Data-Pipeline-Assignment)  
-**Deployment:** [Streamlit Cloud](https://share.streamlit.io/j46068742/data-pipeline/main/app.py)
+**GitHub:** https://github.com/joshuakatumba/Data-Pipeline-Assignment  
+**Deployment:** https://share.streamlit.io/j46068742/data-pipeline/main/app.py
 
 ## Overview
 
