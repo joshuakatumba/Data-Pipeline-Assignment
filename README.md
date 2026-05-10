@@ -20,4 +20,10 @@ This project provides a comprehensive end-to-end data pipeline that extracts, cl
 ### Geographic Distribution
 ![Dashboard Bottom](images/dashboard_bottom.png)
 
+### Deployment & Monitoring
+To ensure stability, the project utilizes Streamlit's automated deployment pipeline with real-time monitoring.
+
+![Console Snapshot One](images/console_snapshot.png)
+![Console Snapshot Two](images/console_snapshot_two.png)
+
 ---

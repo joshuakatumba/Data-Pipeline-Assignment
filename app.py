@@ -258,7 +258,7 @@ try:
                       .nlargest(top_n).reset_index(name="patents"))
         if not inv_counts.empty:
             st.plotly_chart(styled_bar(inv_counts, "name", "patents", f"Top {top_n} Inventors", horizontal=True),
-                           use_container_width=True)
+                           width="stretch")
         else:
             st.info("No inventor data matches your filters.")
 
@@ -268,7 +268,7 @@ try:
                        .nlargest(top_n).reset_index(name="patents"))
         if not comp_counts.empty:
             st.plotly_chart(styled_bar(comp_counts, "name", "patents", f"Top {top_n} Companies", horizontal=True),
-                           use_container_width=True)
+                           width="stretch")
         else:
             st.info("No company data matches your filters.")
 
@@ -296,7 +296,7 @@ try:
             y_cols = ["Historical"] + (["Projected"] if combined["Projected"].notna().any() else [])
             st.plotly_chart(styled_line(combined, "year", y_cols,
                            "Patent Filing Trends & Projections", ["#6C63FF","#F472B6"]),
-                           use_container_width=True)
+                           width="stretch")
         else:
             st.info("Not enough trend data for the selected filters.")
 
@@ -305,7 +305,7 @@ try:
                       .nlargest(top_n).reset_index(name="patents"))
         if not cat_counts.empty:
             st.plotly_chart(styled_pie(cat_counts, "classification", "patents",
-                           "Patent Categories Distribution"), use_container_width=True)
+                           "Patent Categories Distribution"), width="stretch")
         else:
             st.info("No category data matches your filters.")
 
@@ -319,7 +319,7 @@ try:
                           .nlargest(top_n).reset_index(name="patents"))
         if not country_counts.empty:
             st.plotly_chart(styled_bar(country_counts, "country", "patents",
-                           f"Top {top_n} Countries by Patent Count"), use_container_width=True)
+                           f"Top {top_n} Countries by Patent Count"), width="stretch")
         else:
             st.info("No country data matches your filters.")
 
@@ -336,7 +336,7 @@ try:
                 title=dict(font=dict(size=16, color="#E6EDF3")),
                 margin=dict(l=20, r=20, t=50, b=20),
             )
-            st.plotly_chart(fig_heat, use_container_width=True)
+            st.plotly_chart(fig_heat, width="stretch")
         else:
             st.info("Not enough data for heatmap.")
 
@@ -345,7 +345,7 @@ try:
     display_df = filtered_patents[["title","abstract","classification","year"]].copy()
     display_df.columns = ["Title","Abstract","Classification","Year"]
     display_df = display_df.sort_values("Year", ascending=False).head(100)
-    st.dataframe(display_df, use_container_width=True, hide_index=True, height=420)
+    st.dataframe(display_df, width="stretch", hide_index=True, height=420)
 
     # == Footer ==
     st.markdown("---")
