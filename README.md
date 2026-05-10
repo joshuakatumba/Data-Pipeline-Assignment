@@ -1,15 +1,15 @@
-# ⬡ Patent Intelligence Dashboard
+# Patent Intelligence Dashboard
 
 A high-performance, interactive data pipeline and analytics dashboard for global patent intelligence.
 
 [![View Live](https://img.shields.io/badge/View%20Live-Dashboard-6C63FF?style=for-the-badge&logo=streamlit)](https://share.streamlit.io/j46068742/data-pipeline/main/app.py)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/joshuakatumba/Data-Pipeline-Assignment)
 
-## 🚀 Overview
+## Overview
 
 This project provides a comprehensive end-to-end data pipeline that extracts, cleans, and analyzes synthetic patent data. The results are presented through a premium, dark-themed Streamlit dashboard.
 
-## 📊 Dashboard Gallery
+## Dashboard Gallery
 
 ### Overview & KPIs
 ![Dashboard Top](./images/dashboard_top.png)
@@ -20,7 +20,7 @@ This project provides a comprehensive end-to-end data pipeline that extracts, cl
 ### Geographic Analysis & Records
 ![Dashboard Bottom](./images/dashboard_bottom.png)
 
-## ✨ Key Features
+## Key Features
 
 - **Interactive Sidebar Explorer**: Filter by year range, classifications, countries, and top results.
 - **Advanced Trend Analysis**: Real-time filing trends with linear projection modeling.
@@ -28,13 +28,13 @@ This project provides a comprehensive end-to-end data pipeline that extracts, cl
 - **Full-Text Search**: Instant search across patent titles and abstracts.
 - **Premium Aesthetics**: Dark glassmorphic design with custom SVG iconography and animated KPI cards.
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Frontend**: Streamlit, Plotly
 - **Data Backend**: SQLite3, Pandas, NumPy
 - **Pipeline**: Python (Scripts for Extract, Clean, Load, Analyze)
 
-## 🏗️ Getting Started
+## Getting Started
 
 1. **Setup Environment**:
    ```bash
@@ -54,7 +54,7 @@ This project provides a comprehensive end-to-end data pipeline that extracts, cl
    streamlit run app.py
    ```
 
-## 📸 How to Add Screenshots
+## How to Add Screenshots
 
 To make the gallery images above visible on GitHub:
 1. Capture three screenshots of your dashboard (Top, Middle, and Bottom sections).

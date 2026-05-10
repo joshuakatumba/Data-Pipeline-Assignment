@@ -5,15 +5,15 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 
-# ── Page Config ──
+# == Page Config ==
 st.set_page_config(
     page_title="Patent Intelligence Dashboard",
-    page_icon="⬡",
+    page_icon=".",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# ── Custom CSS ──
+# == Custom CSS ==
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -99,7 +99,7 @@ footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
-# ── Plotly Theme ──
+# == Plotly Theme ==
 COLORS = ["#6C63FF","#48C6EF","#A855F7","#F472B6","#34D399","#FBBF24","#FB923C","#F87171"]
 
 def styled_bar(df, x, y, title, horizontal=False):
@@ -154,7 +154,7 @@ def styled_pie(df, names, values, title):
     fig.update_traces(textinfo="percent+label", textfont_size=11)
     return fig
 
-# ── Data Loading ──
+# == Data Loading ==
 @st.cache_data
 def load_full_data():
     conn = sqlite3.connect("patents.db")
@@ -168,7 +168,7 @@ def load_full_data():
 try:
     df_patents, df_inventors, df_companies, df_rels = load_full_data()
 
-    # ── Sidebar Filters ──
+    # == Sidebar Filters ==
     with st.sidebar:
         st.markdown("# Patent Explorer")
         st.markdown("---")
@@ -194,7 +194,7 @@ try:
         st.markdown("### Patent Search")
         search_query = st.text_input("Search titles & abstracts", placeholder="e.g. semiconductor")
 
-    # ── Apply Filters ──
+    # == Apply Filters ==
     filtered_patents = df_patents[
         (df_patents["year"] >= year_range[0]) &
         (df_patents["year"] <= year_range[1]) &
@@ -216,16 +216,16 @@ try:
 
     filtered_rels = df_rels[df_rels["patent_id"].isin(filtered_patents["patent_id"])]
 
-    # ── Hero Header ──
+    # == Hero Header ==
     st.markdown('<p class="hero-title">Global Patent Intelligence</p>', unsafe_allow_html=True)
-    st.markdown('<p class="hero-sub">Interactive analytics dashboard — adjust sliders in the sidebar to explore custom data views</p>', unsafe_allow_html=True)
+    st.markdown('<p class="hero-sub">Interactive analytics dashboard - adjust sliders in the sidebar to explore custom data views</p>', unsafe_allow_html=True)
 
-    # ── KPI Metrics ──
+    # == KPI Metrics ==
     total = len(filtered_patents)
     n_inventors = filtered_rels["inventor_id"].nunique()
     n_companies = filtered_rels["company_id"].nunique()
     n_categories = filtered_patents["classification"].nunique()
-    yr_span = f"{year_range[0]}–{year_range[1]}"
+    yr_span = f"{year_range[0]} - {year_range[1]}"
 
     cols = st.columns(5)
     svg_icons = [
@@ -248,7 +248,7 @@ try:
 
     st.markdown("")
 
-    # ── Row 1: Top Inventors & Companies ──
+    # == Row 1: Top Inventors and Companies ==
     st.markdown('<div class="section-header"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg> Top Performers</div>', unsafe_allow_html=True)
     c1, c2 = st.columns(2)
 
@@ -272,7 +272,7 @@ try:
         else:
             st.info("No company data matches your filters.")
 
-    # ── Row 2: Trends & Categories ──
+    # == Row 2: Trends and Categories ==
     st.markdown('<div class="section-header"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#48C6EF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Trends & Classification</div>', unsafe_allow_html=True)
     c3, c4 = st.columns(2)
 
@@ -309,7 +309,7 @@ try:
         else:
             st.info("No category data matches your filters.")
 
-    # ── Row 3: Country & Heatmap ──
+    # == Row 3: Country and Heatmap ==
     st.markdown('<div class="section-header"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Geographic & Temporal Analysis</div>', unsafe_allow_html=True)
     c5, c6 = st.columns(2)
 
@@ -329,7 +329,7 @@ try:
         if not heat_data.empty:
             pivot = heat_data.pivot(index="classification", columns="year", values="count").fillna(0)
             fig_heat = px.imshow(pivot, aspect="auto", color_continuous_scale=["#0D1117","#6C63FF","#A855F7"],
-                                 title="Classification × Year Heatmap")
+                                 title="Classification x Year Heatmap")
             fig_heat.update_layout(
                 plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
                 font=dict(family="Inter", color="#C9D1D9"),
@@ -340,14 +340,14 @@ try:
         else:
             st.info("Not enough data for heatmap.")
 
-    # ── Qualitative Data Table ──
+    # == Qualitative Data Table ==
     st.markdown('<div class="section-header"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg> Patent Records Explorer</div>', unsafe_allow_html=True)
     display_df = filtered_patents[["title","abstract","classification","year"]].copy()
     display_df.columns = ["Title","Abstract","Classification","Year"]
     display_df = display_df.sort_values("Year", ascending=False).head(100)
     st.dataframe(display_df, use_container_width=True, hide_index=True, height=420)
 
-    # ── Footer ──
+    # == Footer ==
     st.markdown("---")
     st.markdown(
         '<p style="text-align:center;color:#484F58;font-size:0.8rem;">'
