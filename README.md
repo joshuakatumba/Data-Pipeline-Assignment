@@ -12,13 +12,13 @@ This project provides a comprehensive end-to-end data pipeline that extracts, cl
 ## 📊 Dashboard Gallery
 
 ### Overview & KPIs
-![Dashboard Top](./dashboard_top.png)
+![Dashboard Top](./images/dashboard_top.png)
 
 ### Performance & Trends
-![Dashboard Middle](./dashboard_middle.png)
+![Dashboard Middle](./images/dashboard_middle.png)
 
 ### Geographic Analysis & Records
-![Dashboard Bottom](./dashboard_bottom.png)
+![Dashboard Bottom](./images/dashboard_bottom.png)
 
 ## ✨ Key Features
 
@@ -58,7 +58,7 @@ This project provides a comprehensive end-to-end data pipeline that extracts, cl
 
 To make the gallery images above visible on GitHub:
 1. Capture three screenshots of your dashboard (Top, Middle, and Bottom sections).
-2. Save them exactly as `dashboard_top.png`, `dashboard_middle.png`, and `dashboard_bottom.png` in the root directory.
+2. Save them exactly as `dashboard_top.png`, `dashboard_middle.png`, and `dashboard_bottom.png` in the `images/` directory.
 3. Run `git add .`, `git commit -m "Add dashboard screenshots"`, and `git push`.
 
 GitHub will then automatically render them in the gallery section above.
